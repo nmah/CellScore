@@ -29,3 +29,5 @@ License: GPL-3
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.0.1
+NeedsCompilation: no
+Packaged: 2018-01-18 16:30:20 UTC; nmah
