@@ -4,8 +4,14 @@
 \alias{PlotCosineSimHeatmap}
 \title{Plot heatmap of the cosine similarity score}
 \usage{
-PlotCosineSimHeatmap(data, desc = "xx", width = 20, height = 20,
-  x = -30, y = 3)
+PlotCosineSimHeatmap(
+  data,
+  desc = "xx",
+  width = 20,
+  height = 20,
+  x = -30,
+  y = 3
+)
 }
 \arguments{
 \item{data}{a data.frame of cosine similarity scores, as generated
@@ -47,7 +53,7 @@ if (file.exists(rdata.path) && file.exists(tsvdata.path)) {
    load(rdata.path)
 
    ## Import the cell change info for the loaded test samples
-   cell.change <- read.delim(file= tsvdata.path, sep="\\t",
+   cell.change <- read.delim(file= tsvdata.path, sep="\t",
                              header=TRUE, stringsAsFactors=FALSE)
 
    ## Combine the standards and the test data

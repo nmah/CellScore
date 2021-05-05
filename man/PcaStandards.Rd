@@ -4,15 +4,19 @@
 \alias{PcaStandards}
 \title{PCA plot on the most variable portion of the standard expression dataset}
 \usage{
-PcaStandards(label, label.name, exps, text.label = NULL,
-  col.palette = c("blue", "magenta", "green", "red", "goldenrod",
-  "mediumslateblue", "olivedrab", "navyblue", "plum", "tomato", "thistle",
-  "limegreen", "burlywood4", "cornflowerblue", "deeppink", "chartreuse",
-  "forestgreen", "darkslateblue", "blueviolet", "gray50", "darkorange", "black",
-  "lightsalmon4", "mediumseagreen", "palegreen4", "palevioletred4",
-  "peachpuff4", "plum4", "mediumspringgreen", "darkred", "khaki4", "lawngreen",
-  "lightseagreen", "orange", "orchid3", "sienna4", "snow4", "turquoise3",
-  "wheat3", "goldenrod2",      "darkorange3"))
+PcaStandards(
+  label,
+  label.name,
+  exps,
+  text.label = NULL,
+  col.palette = c("blue", "magenta", "green", "red", "goldenrod", "mediumslateblue",
+    "olivedrab", "navyblue", "plum", "tomato", "thistle", "limegreen", "burlywood4",
+    "cornflowerblue", "deeppink", "chartreuse", "forestgreen", "darkslateblue",
+    "blueviolet", "gray50", "darkorange", "black", "lightsalmon4", "mediumseagreen",
+    "palegreen4", "palevioletred4", "peachpuff4", "plum4", "mediumspringgreen",
+    "darkred", "khaki4", "lawngreen", "lightseagreen", "orange", "orchid3", "sienna4",
+    "snow4", "turquoise3", "wheat3", "goldenrod2",      "darkorange3")
+)
 }
 \arguments{
 \item{label}{vector to be used for the point colours}
@@ -53,7 +57,7 @@ if (file.exists(rdata.path) && file.exists(tsvdata.path)) {
    load(rdata.path)
 
    ## Import the cell change info for the loaded test samples
-   cell.change <- read.delim(file= tsvdata.path, sep="\\t",
+   cell.change <- read.delim(file= tsvdata.path, sep="\t",
                              header=TRUE, stringsAsFactors=FALSE)
 
    ## Combine the standards and the test data

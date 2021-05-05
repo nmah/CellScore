@@ -12,7 +12,10 @@ Description: The CellScore package contains functions to evaluate the cell
    U133 Plus 2.0). In principle, the method could be applied to any expression 
    dataset, provided that there are a sufficient number of standard samples and 
    that the data are normalized.
-Suggests: hgu133plus2CellScore, knitr
+Suggests: 
+    hgu133plus2CellScore,
+    knitr,
+    testthat (>= 3.0.0)
 VignetteBuilder: knitr
 biocViews: GeneExpression, Transcription, Microarray,
         MultipleComparison, ReportWriting, DataImport, Visualization
@@ -24,6 +27,7 @@ Depends: R (>= 3.5.0)
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.0.1
+RoxygenNote: 7.1.1
 NeedsCompilation: no
 Packaged: 2018-01-18 16:30:20 UTC; nmah
+Config/testthat/edition: 3
