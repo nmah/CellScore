@@ -250,6 +250,22 @@
 }
 
 ################################################################################
+## FUNCTION: .stopIfNotExpressionSet
+################################################################################
+#' @importFrom methods is
+.stopIfCantCoerceToSummarizedExperiment <- function(x, x.name, fun.name){
+    if (is(x, "SummarizedExperiment")) {
+           return(x)
+    }
+    if (is(x,"ExpressionSet")) {
+      # Attempt to coerce to a SummarizedExperiment
+      return(as(x, "RangedSummarizedExperiment"))
+    }
+    stop(paste("In the function", fun.name, "the", x.name,
+               "argument shoud be a SummarizedExperiment or an ExpressionSet."))
+}
+
+################################################################################
 ## FUNCTION: .stopIfNotDataFrame
 ################################################################################
 .stopIfNotDataFrame <- function(x, x.name, fun.name){

@@ -31,6 +31,7 @@
 #'   \code{\link[hgu133plus2CellScore]{hgu133plus2CellScore}} for details on the
 #'   specific expressionSet object that shoud be provided as an input.
 #' @export
+#' @import SummarizedExperiment
 #' @importClassesFrom Biobase ExpressionSet
 #' @importMethodsFrom Biobase pData
 #' @examples
@@ -85,7 +86,7 @@ CellScore <- function(eset, cell.change, scores.onoff, scores.cosine) {
     ## PART 00. Check function arguments
     ############################################################################
     fun.main <- as.character(match.call()[[1]])
-    .stopIfNotExpressionSet(eset, "eset", fun.main)
+    summarized_experiment <- .stopIfCantCoerceToSummarizedExperiment(eset, "eset", fun.main)
     .stopIfNotDataFrame(cell.change, "cell.change", fun.main)
     .stopIfNotDataFrame(scores.onoff, "scores.onoff", fun.main)
     .stopIfNotSymetricMatrix0to1(scores.cosine, "scores.cosine", fun.main)
@@ -100,7 +101,9 @@ CellScore <- function(eset, cell.change, scores.onoff, scores.cosine) {
     ##  o also exclude any rows with NA values in "general_cell_type":
     ##    this should not be NA
 
-    pdata <- pData(eset)
+    # Convert back to eset to test if it works at all
+    fake_eset <- as(summarized_experiment, "ExpressionSet")
+    pdata <- pData(fake_eset)
     sel <- !is.na(pdata$category) & !is.na(pdata$general_cell_type)
 
     ## DO 'major group' comparisons only
