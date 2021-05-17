@@ -38,7 +38,7 @@ test_that("We can create a CellScore object from data", {
         cellscore <- CellScore(eset.sub, cell.change, individ.OnOff$scores,
                                cs$cosine.samples)
         # Get comparison data
-        baseline <- as.data.frame(read.csv("test.csv", header=TRUE))
+        baseline <- read.csv("test.csv", row.names=1, colClasses=c('character', NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 'double', NA))
         expect_named(cellscore, c('composite.ID', 'experiment_id', 'sample_id', 'platform_id', 'cell_type', 'disease_status', 'category', 'general_cell_type', 'donor_tissue', 'sub_cell_type1', 'transition_induction_method', 'donor_cell_body_location', 'start', 'target', 'markers.start', 'markers.target', 'start.mkrs.in.test', 'target.mkrs.in.test', 'loss.start.mkrs', 'gain.target.mkrs', 'OnOffScore', 'fraction.target', 'cosine.target', 'fraction.donor', 'cosine.donor', 'target.like', 'donor.like', 'CellScore', 'index'))
         expect_length(cellscore$platform_id, 430)
         expect_length(cellscore$CellScore, 430)
