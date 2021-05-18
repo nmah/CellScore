@@ -101,9 +101,7 @@ CellScore <- function(eset, cell.change, scores.onoff, scores.cosine) {
     ##  o also exclude any rows with NA values in "general_cell_type":
     ##    this should not be NA
 
-    # Convert back to eset to test if it works at all
-    fake_eset <- as(summarized_experiment, "ExpressionSet")
-    pdata <- pData(fake_eset)
+    pdata <- colData(summarized_experiment)
     sel <- !is.na(pdata$category) & !is.na(pdata$general_cell_type)
 
     ## DO 'major group' comparisons only
