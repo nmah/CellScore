@@ -80,7 +80,7 @@ OnOff <- function(eset, cell.change,
     ## PART 0. Check function arguments
     ############################################################################
     fun.main <- deparse(match.call()[[1]])
-    .stopIfNotExpressionSet(eset, 'eset', fun.main)
+    summarized_experiment <- .stopIfCantCoerceToSummarizedExperiment(eset, 'eset', fun.main)
     .stopIfNotDataFrame(cell.change, 'cell.change', fun.main)
     .stopIfNotNumeric0to1(min.diff.cutoff, 'min.diff.cutoff', fun.main)
     .stopIfNotNumeric0to1(test.cutoff, 'test.cutoff', fun.main)
@@ -96,9 +96,9 @@ OnOff <- function(eset, cell.change,
     ##         score.comparisons table, so that ALL of the score
     ##         comparisons in the table have samples in all groups
     ############################################################################
-    annot <- fData(eset)
-    pdata <- .filterPheno(pData(eset), fun.main, 'na')
-    calls <- assayDataElement(eset[, rownames(pdata)], "calls")
+    annot <- rowData(summarized_experiment)
+    pdata <- .filterPheno(colData(summarized_experiment), fun.main, 'na')
+    calls <- assay(summarized_experiment[, rownames(pdata)], "calls")
     rownames(calls) <- annot$probe_id
     score.comparisons <- .filterTransitions(cell.change, pdata, fun.main,
                                             "valid.names")
