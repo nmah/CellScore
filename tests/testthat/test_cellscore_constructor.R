@@ -35,8 +35,8 @@ test_that("We can create a CellScore object from data", {
         individ.OnOff <- OnOff(eset.sub, cell.change, out.put="individual")
      
         ## Generate the CellScore values for all samples
-        cellscore <- CellScore(eset.sub, cell.change, individ.OnOff$scores,
-                               cs$cosine.samples)
+        cellscore <- CellScore(cell.change, data=eset.sub, scores.onoff=individ.OnOff$scores,
+                               scores.cosine=cs$cosine.samples)
         # Get comparison data
         baseline <- read.csv("test.csv", row.names=1, colClasses=c('character', NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, 'double', NA))
         expect_named(cellscore, c('composite.ID', 'experiment_id', 'sample_id', 'platform_id', 'cell_type', 'disease_status', 'category', 'general_cell_type', 'donor_tissue', 'sub_cell_type1', 'transition_induction_method', 'donor_cell_body_location', 'start', 'target', 'markers.start', 'markers.target', 'start.mkrs.in.test', 'target.mkrs.in.test', 'loss.start.mkrs', 'gain.target.mkrs', 'OnOffScore', 'fraction.target', 'cosine.target', 'fraction.donor', 'cosine.donor', 'target.like', 'donor.like', 'CellScore', 'index'))

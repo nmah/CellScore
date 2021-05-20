@@ -72,7 +72,7 @@
 #'                           cs$cosine.samples)
 #' }
 
-CellScore <- function(eset, cell.change, scores.onoff, scores.cosine) {
+CellScore <- function(transitions, data = NULL, scores.onoff = NULL, scores.cosine = NULL, pdata = NULL) {
     ## PSEUDOCODE
     ## Start with individ.OnOff and add cosine similarities as columns to it.
     ## o transpose the cs$cosine.samples so samples are in rows
@@ -86,7 +86,25 @@ CellScore <- function(eset, cell.change, scores.onoff, scores.cosine) {
     ## PART 00. Check function arguments
     ############################################################################
     fun.main <- as.character(match.call()[[1]])
-    summarized_experiment <- .stopIfCantCoerceToSummarizedExperiment(eset, "eset", fun.main)
+    # Check that we have at least the minimal set of function arguments
+    if (!is.null(data)) {
+      summarized_experiment <- .stopIfCantCoerceToSummarizedExperiment(data, "data", fun.main)
+      if (is.null(scores.onoff)) {
+        # Do OnOff
+        scores.onoff <- OnOff(summarized_data, transitions, out.put="individual")$scores
+      }
+      if (is.null(scores.cosine)) {
+        # Do CosineSimScore
+        scores.cosine <- CosineSimScore(summarized_experiment, transitions, iqr.cutoff=0.1)$cosine.samples
+      }
+      if (is.null(pdata)) {
+        pdata <- colData(summarized_experiment)
+      }
+    } else {
+      if (is.null(scores.onoff) | is.null(scores.cosine) | is.null(pdata)) {
+        stop("Missing required arguments to CellScore; either data or all of scores.onoff, scores.cosine, and pdata arguments must not be NULL")
+      }
+    }
     .stopIfNotDataFrame(cell.change, "cell.change", fun.main)
     .stopIfNotDataFrame(scores.onoff, "scores.onoff", fun.main)
     .stopIfNotSymetricMatrix0to1(scores.cosine, "scores.cosine", fun.main)
@@ -101,7 +119,6 @@ CellScore <- function(eset, cell.change, scores.onoff, scores.cosine) {
     ##  o also exclude any rows with NA values in "general_cell_type":
     ##    this should not be NA
 
-    pdata <- colData(summarized_experiment)
     sel <- !is.na(pdata$category) & !is.na(pdata$general_cell_type)
 
     ## DO 'major group' comparisons only
