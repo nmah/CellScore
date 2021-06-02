@@ -250,7 +250,7 @@
 }
 
 ################################################################################
-## FUNCTION: .stopIfNotExpressionSet
+## FUNCTION: .stopIfCantCoerceToSummarizedExpression
 ################################################################################
 #' @importFrom methods is
 .stopIfCantCoerceToSummarizedExperiment <- function(x, x.name, fun.name){
