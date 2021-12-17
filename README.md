@@ -7,7 +7,7 @@ To install CellScore locally from this repo for development or testing, you need
 Then clone the repo:
 
 ```sh
-git clone https://github.com/flaviusb/homosapienDEE2CellScore.git
+git clone https://github.com/flaviusb/CellScore.git
 ```
 
 Then, run R inside the cloned directory. In order to load the package locally, you can run:
