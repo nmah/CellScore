@@ -300,7 +300,7 @@ OnOff <- function(eset, cell.change,
                           count.group <- sum(probesets[[group]])
                           data.frame(comparison=rep(info, count.group),
                                      group=rep(instance[group], count.group),
-                                     annotations[probesets[[group]],],
+                                     annotations[probesets[[group]],,drop=FALSE],
                                      stringsAsFactors=FALSE)
                       })
     do.call("rbind", markers)
