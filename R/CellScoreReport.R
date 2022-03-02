@@ -108,7 +108,7 @@ CellScoreReport <- function(cellscore, cell.change, marker.genes, eset) {
     calls <- assayDataElement(eset, "calls")
     ## set rownames of calls to probeset ids (these are unique and
     ## less error prone than the current rownames)
-    rownames(calls) <- fData(eset)[, "probe_id"]
+    rownames(calls) <- fData(eset)[, "feature_id"]
 
     ############################################################################
     ## PART II. Plot

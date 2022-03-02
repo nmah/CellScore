@@ -86,7 +86,7 @@
 #'    group.OnOff <- OnOff(eset.sub, cell.change, out.put="marker.list")
 #'
 #'    calls <- assayDataElement(eset.sub, "calls")
-#'    rownames(calls) <- fData(eset.sub)[, "probe_id"]
+#'    rownames(calls) <- fData(eset.sub)[, "feature_id"]
 #'
 #'    ## Plot
 #'    heatmapOnOffMarkers(test.data, group.OnOff$markers, pData(eset.sub),
@@ -137,7 +137,7 @@ heatmapOnOffMarkers <- function(test.data, markergenes, pdata, calls) {
 
     calls.list <- lapply(marker.list,
                          function(mat){
-                             sel <- rownames(calls) %in% mat$probe_id
+                             sel <- rownames(calls) %in% mat$feature_id
                              calls[sel, samples.vector]
                          })
 

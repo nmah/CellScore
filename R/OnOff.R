@@ -99,7 +99,7 @@ OnOff <- function(eset, cell.change,
     annot <- rowData(summarized_experiment)
     pdata <- .filterPheno(colData(summarized_experiment), fun.main, 'na')
     calls <- assay(summarized_experiment[, rownames(pdata)], "calls")
-    rownames(calls) <- annot$probe_id
+    rownames(calls) <- annot$feature_id
     score.comparisons <- .filterTransitions(cell.change, pdata, fun.main,
                                             "valid.names")
 
@@ -230,7 +230,7 @@ OnOff <- function(eset, cell.change,
 
     ## Combine marker and score lists
     onoff.markers <- do.call('rbind', lapply(out, '[[', 'markers'))
-    sub.onoff.markers <- onoff.markers[, c("comparison", "group", "probe_id")]
+    sub.onoff.markers <- onoff.markers[, c("comparison", "group", "feature_id")]
     onoff.markers <- onoff.markers[!duplicated(sub.onoff.markers),]
     onoff.scores <- do.call('rbind', lapply(out, '[[', 'scores'))
 
@@ -294,7 +294,7 @@ OnOff <- function(eset, cell.change,
     markers <- lapply(c("start", "target"),
                       function(group){
                           stopifnot(identical(names(probesets[[group]]),
-                                              annotations$probe_id))
+                                              annotations$feature_id))
                           info <- paste(instance[c("start", "target")],
                                         collapse = "->")
                           count.group <- sum(probesets[[group]])

@@ -255,9 +255,22 @@
 #' @importFrom methods is
 .stopIfCantCoerceToSummarizedExperiment <- function(x, x.name, fun.name){
     if (is(x, "SummarizedExperiment")) {
-           return(x)
+      # Check whether we have feature_id, if not we add it
+      if (!("feature_id" %in% names(rowData(x)))) {
+        feature_id <- rowData(x)["probe_id"]
+        names(feature_id) <- c("feature_id")
+        rowData(x) <- cbind(rowData(x), feature_id)
+      }
+      return(x)
     }
     if (is(x,"ExpressionSet")) {
+      # First change probe_id to feature_id if needed
+      if (!("feature_id" %in% names(fData(x)))) {
+        feature_id <- fData(x)["probe_id"]
+        names(feature_id) <- c("feature_id")
+        fData(x) <- cbind(fData(x), feature_id)
+      }
+      #fData(x)[, "probe_id"]
       # Attempt to coerce to a SummarizedExperiment
       return(as(x, "RangedSummarizedExperiment"))
     }
