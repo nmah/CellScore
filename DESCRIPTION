@@ -1,6 +1,6 @@
 Package: CellScore
 Title: Tool for Evaluation of Cell Identity from Transcription Profiles
-Version: 1.15.0
+Version: 1.16.0
 Author: Nancy Mah, Katerina Taskova
 Maintainer: Nancy Mah <nancy.l.mah@googlemail.com>
 Description: The CellScore package contains functions to evaluate the cell
