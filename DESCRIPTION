@@ -26,7 +26,7 @@ biocViews: GeneExpression, Transcription, Microarray,
 Imports: Biobase (>= 2.39.1), graphics (>= 3.5.0), grDevices (>=
         3.5.0), gplots (>= 3.0.1), lsa (>= 0.73.1), methods (>= 3.5.0),
         RColorBrewer(>= 1.1-2), squash (>= 1.0.8), stats (>= 3.5.0),
-        utils(>= 3.5.0)
+        utils(>= 3.5.0), SummarizedExperiment
 Depends: R (>= 3.5.0)
 License: GPL-3
 Encoding: UTF-8
