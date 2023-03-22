@@ -1,8 +1,12 @@
 Package: CellScore
 Title: Tool for Evaluation of Cell Identity from Transcription Profiles
 Version: 1.19.0
-Author: Nancy Mah, Katerina Taskova
-Maintainer: Nancy Mah <nancy.l.mah@googlemail.com>
+Authors@R: 
+    c(
+      person("Nancy", "Mah", email = "nancy.l.mah@googlemail.com", role = c("aut", "cre")),
+      person("Katerina", "Taskova", role = c("aut")),
+      person("Justin", "Marsh", role = c("aut"))
+    )
 Description: The CellScore package contains functions to evaluate the cell
    identity of a test sample, given a cell transition defined with a starting 
    (donor) cell type and a desired target cell type. The evaluation is based 
@@ -27,7 +31,7 @@ Depends: R (>= 3.5.0)
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 7.1.1
+RoxygenNote: 7.2.3
 NeedsCompilation: no
 Packaged: 2018-01-18 16:30:20 UTC; nmah
 Config/testthat/edition: 3

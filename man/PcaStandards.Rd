@@ -15,7 +15,8 @@ PcaStandards(
     "blueviolet", "gray50", "darkorange", "black", "lightsalmon4", "mediumseagreen",
     "palegreen4", "palevioletred4", "peachpuff4", "plum4", "mediumspringgreen",
     "darkred", "khaki4", "lawngreen", "lightseagreen", "orange", "orchid3", "sienna4",
-    "snow4", "turquoise3", "wheat3", "goldenrod2",      "darkorange3")
+    "snow4", "turquoise3", "wheat3", "goldenrod2", 
+     "darkorange3")
 )
 }
 \arguments{

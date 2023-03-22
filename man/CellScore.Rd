@@ -86,7 +86,7 @@ if (file.exists(rdata.path) && file.exists(tsvdata.path)) {
 }
 \seealso{
 \code{\link[CellScore]{CosineSimScore}, \link[CellScore]{OnOff}} for
-  detials on specfic score calculations, and
+  details on specfic score calculations, and
   \code{\link[hgu133plus2CellScore]{hgu133plus2CellScore}} for details on the
   specific expressionSet object that shoud be provided as an input.
 }

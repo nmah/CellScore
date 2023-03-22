@@ -90,7 +90,7 @@ if (file.exists(rdata.path) && file.exists(tsvdata.path)) {
    group.OnOff <- OnOff(eset.sub, cell.change, out.put="marker.list")
 
    calls <- assayDataElement(eset.sub, "calls")
-   rownames(calls) <- fData(eset.sub)[, "probe_id"]
+   rownames(calls) <- fData(eset.sub)[, "feature_id"]
 
    ## Plot
    heatmapOnOffMarkers(test.data, group.OnOff$markers, pData(eset.sub),
