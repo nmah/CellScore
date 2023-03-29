@@ -65,8 +65,8 @@
 #'    individ.OnOff <- OnOff(eset.sub, cell.change, out.put="individual")
 #'
 #'    ## Generate the CellScore values for all samples
-#'    cellscore <- CellScore(eset.sub, cell.change, individ.OnOff$scores,
-#'                           cs$cosine.samples)
+#'    cellscore <- CellScore(data=eset.sub, transitions=cell.change, scores.onoff=individ.OnOff$scores,
+#'                           scores.cosine=cs$cosine.samples)
 #'
 #'    ## Generate the group on/off scores for the combined data
 #'    group.OnOff <- OnOff(eset.sub, cell.change, out.put="marker.list")
@@ -83,7 +83,7 @@ CellScoreReport <- function(cellscore, cell.change, marker.genes, eset) {
     ## PART 0. Check function arguments
     ############################################################################
     fun.main <- deparse(match.call()[[1]])
-    .stopIfNotExpressionSet(eset, 'eset', fun.main)
+    summarized_experiment <- .stopIfCantCoerceToSummarizedExperiment(eset, 'eset', fun.main)
     .stopIfNotDataFrame(cell.change, 'cell.change', fun.main)
     .stopIfNotDataFrame(cellscore, 'cellscore', fun.main)
     .stopIfNotDataFrame(marker.genes, 'marker.genes', fun.main)
@@ -104,11 +104,11 @@ CellScoreReport <- function(cellscore, cell.change, marker.genes, eset) {
                                          plot.data$experiment_id), ]
 
     ## Get the phenotype and the absent/present calls
-    pdata <- pData(eset)
-    calls <- assayDataElement(eset, "calls")
+    pdata <- data.frame(colData(summarized_experiment))
+    calls <- assay(summarized_experiment, "calls")
     ## set rownames of calls to probeset ids (these are unique and
     ## less error prone than the current rownames)
-    rownames(calls) <- fData(eset)[, "feature_id"]
+    rownames(calls) <- rowData(summarized_experiment)[, "feature_id"]
 
     ############################################################################
     ## PART II. Plot

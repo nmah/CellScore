@@ -63,8 +63,8 @@ if (file.exists(rdata.path) && file.exists(tsvdata.path)) {
    individ.OnOff <- OnOff(eset.sub, cell.change, out.put="individual")
 
    ## Generate the CellScore values for all samples
-   cellscore <- CellScore(eset.sub, cell.change, individ.OnOff$scores,
-                          cs$cosine.samples)
+   cellscore <- CellScore(data=eset.sub, transitions=cell.change, scores.onoff=individ.OnOff$scores,
+                          scores.cosine=cs$cosine.samples)
 
    ## Make the scaterplot of CellScore components
    ScatterplotCellScoreComponents(cellscore, cell.change, FALSE)

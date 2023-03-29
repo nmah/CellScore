@@ -64,8 +64,8 @@ if (file.exists(rdata.path) && file.exists(tsvdata.path)) {
    individ.OnOff <- OnOff(eset.sub, cell.change, out.put="individual")
 
    ## Generate the CellScore values for all samples
-   cellscore <- CellScore(eset.sub, cell.change, individ.OnOff$scores,
-                          cs$cosine.samples)
+   cellscore <- CellScore(data=eset.sub, transitions=cell.change, scores.onoff=individ.OnOff$scores,
+                          scores.cosine=cs$cosine.samples)
    ## Get the CellScore fvalues rom valid transitions defined by cell.change
    ## table
    plot.data <- extractTransitions(cellscore, cell.change)
@@ -90,7 +90,7 @@ if (file.exists(rdata.path) && file.exists(tsvdata.path)) {
    group.OnOff <- OnOff(eset.sub, cell.change, out.put="marker.list")
 
    calls <- assayDataElement(eset.sub, "calls")
-   rownames(calls) <- fData(eset.sub)[, "feature_id"]
+   rownames(calls) <- if("feature_id" \%in\% names(rowData(eset.sub))) { fData(eset.sub)[, "feature_id"] } else { fData(eset.sub)[, "probe_id"] }
 
    ## Plot
    heatmapOnOffMarkers(test.data, group.OnOff$markers, pData(eset.sub),
