@@ -90,12 +90,13 @@ CellScore <- function(transitions, data = NULL, scores.onoff = NULL, scores.cosi
     ## PART 00. Check function arguments
     ############################################################################
     fun.main <- as.character(match.call()[[1]])
+    .stopIfNotDataFrame(transitions, "transitions", fun.main)
     # Check that we have at least the minimal set of function arguments
     if (!is.null(data)) {
       summarized_experiment <- .stopIfCantCoerceToSummarizedExperiment(data, "data", fun.main)
       if (is.null(scores.onoff)) {
         # Do OnOff
-        scores.onoff <- OnOff(summarized_data, transitions, out.put="individual")$scores
+        scores.onoff <- OnOff(summarized_experiment, transitions, out.put="individual")$scores
       }
       if (is.null(scores.cosine)) {
         # Do CosineSimScore
@@ -109,7 +110,6 @@ CellScore <- function(transitions, data = NULL, scores.onoff = NULL, scores.cosi
         stop("Missing required arguments to CellScore; either data or all of scores.onoff, scores.cosine, and pdata arguments must not be NULL")
       }
     }
-    .stopIfNotDataFrame(cell.change, "cell.change", fun.main)
     .stopIfNotDataFrame(scores.onoff, "scores.onoff", fun.main)
     .stopIfNotSymetricMatrix0to1(scores.cosine, "scores.cosine", fun.main)
 
@@ -126,12 +126,12 @@ CellScore <- function(transitions, data = NULL, scores.onoff = NULL, scores.cosi
     sel <- !is.na(pdata$category) & !is.na(pdata$general_cell_type)
 
     ## DO 'major group' comparisons only
-    sel.start <- cell.change$start %in% pdata[sel, "general_cell_type"]
-    sel.target <- cell.change$target %in% pdata[sel, "general_cell_type"]
-    sel.unique <- !duplicated(paste(cell.change$start,
-                                    cell.change$target,
+    sel.start <- transitions$start %in% pdata[sel, "general_cell_type"]
+    sel.target <- transitions$target %in% pdata[sel, "general_cell_type"]
+    sel.unique <- !duplicated(paste(transitions$start,
+                                    transitions$target,
                                     sep="_"))
-    score.comparisons <- cell.change[sel.start & sel.target & sel.unique, ]
+    score.comparisons <- transitions[sel.start & sel.target & sel.unique, ]
     rownames(score.comparisons) <- seq_len(nrow(score.comparisons))
 
     ############################################################################

@@ -252,7 +252,8 @@
 ################################################################################
 ## FUNCTION: .stopIfCantCoerceToSummarizedExpression
 ################################################################################
-#' @importFrom methods is
+#' @importFrom methods is as
+#' @importMethodsFrom Biobase fData fData<-
 .stopIfCantCoerceToSummarizedExperiment <- function(x, x.name, fun.name){
     if (is(x, "SummarizedExperiment")) {
       # Check whether we have feature_id, if not we add it

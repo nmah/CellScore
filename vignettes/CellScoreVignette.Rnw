@@ -494,8 +494,8 @@ straightforward to calculate the CellScores for every sample in the expression
 matrix.
 
 <<eval=TRUE, echo=TRUE>>=
-cellscore <- CellScore(eset, cell.change, individ.OnOff$scores,
-                       cs$cosine.samples)
+cellscore <- CellScore(data=eset, transitions=cell.change, scores.onoff=individ.OnOff$scores,
+                       scores.cosine=cs$cosine.samples)
 @
 
 Finally, we can save all the scores and data in one file for later
