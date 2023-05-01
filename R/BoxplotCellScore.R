@@ -56,8 +56,8 @@
 #'    individ.OnOff <- OnOff(eset.sub, cell.change, out.put="individual")
 #'
 #'    ## Generate the CellScore values for all samples
-#'    cellscore <- CellScore(eset.sub, cell.change, individ.OnOff$scores,
-#'                           cs$cosine.samples)
+#'    cellscore <- CellScore(data=eset.sub, transitions=cell.change, scores.onoff=individ.OnOff$scores,
+#'                           scores.cosine=cs$cosine.samples)
 #'
 #'    ## Make the boxplot of CellScore values
 #'    BoxplotCellScore(cellscore, cell.change)

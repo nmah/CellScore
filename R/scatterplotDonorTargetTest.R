@@ -50,8 +50,8 @@
 #'    cs <- CosineSimScore(eset, cell.change, iqr.cutoff=0.05)
 #'
 #'    ## Generate the CellScore values for all samples
-#'    cellscore <- CellScore(eset, cell.change, individ.OnOff$scores,
-#'                           cs$cosine.samples)
+#'    cellscore <- CellScore(data=eset, transitions=cell.change, scores.onoff=individ.OnOff$scores,
+#'                           scores.cosine=cs$cosine.samples)
 #'    ## Get the CellScore fvalues rom valid transitions defined by cell.change
 #'    ## table
 #'    plot.data <- extractTransitions(cellscore, cell.change)

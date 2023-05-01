@@ -1,8 +1,12 @@
 Package: CellScore
 Title: Tool for Evaluation of Cell Identity from Transcription Profiles
-Version: 0.99.0
-Author: Nancy Mah, Katerina Taskova
-Maintainer: Nancy Mah <nancy.l.mah@googlemail.com>
+Version: 1.19.0
+Authors@R: 
+    c(
+      person("Nancy", "Mah", email = "nancy.l.mah@googlemail.com", role = c("aut", "cre")),
+      person("Katerina", "Taskova", role = c("aut")),
+      person("Justin", "Marsh", role = c("aut"))
+    )
 Description: The CellScore package contains functions to evaluate the cell
    identity of a test sample, given a cell transition defined with a starting 
    (donor) cell type and a desired target cell type. The evaluation is based 
@@ -12,18 +16,22 @@ Description: The CellScore package contains functions to evaluate the cell
    U133 Plus 2.0). In principle, the method could be applied to any expression 
    dataset, provided that there are a sufficient number of standard samples and 
    that the data are normalized.
-Suggests: hgu133plus2CellScore, knitr
+Suggests: 
+    hgu133plus2CellScore,
+    knitr,
+    testthat (>= 3.0.0)
 VignetteBuilder: knitr
 biocViews: GeneExpression, Transcription, Microarray,
         MultipleComparison, ReportWriting, DataImport, Visualization
 Imports: Biobase (>= 2.39.1), graphics (>= 3.5.0), grDevices (>=
         3.5.0), gplots (>= 3.0.1), lsa (>= 0.73.1), methods (>= 3.5.0),
         RColorBrewer(>= 1.1-2), squash (>= 1.0.8), stats (>= 3.5.0),
-        utils(>= 3.5.0)
-Depends: R (>= 3.5.0)
+        utils(>= 3.5.0), SummarizedExperiment
+Depends: R (>= 4.3.0)
 License: GPL-3
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.0.1
+RoxygenNote: 7.2.3
 NeedsCompilation: no
 Packaged: 2018-01-18 16:30:20 UTC; nmah
+Config/testthat/edition: 3

@@ -66,13 +66,13 @@ BarplotOnOff <- function(eset, group.score) {
     ## PART 0. Check function arguments
     ############################################################################
     fun.main <- deparse(match.call()[[1]])
-    .stopIfNotExpressionSet(eset, 'eset', fun.main)
+    summarized_experiment <- .stopIfCantCoerceToSummarizedExperiment(eset, "eset", fun.main)
     .stopIfNotDataFrame(group.score, 'group.score', fun.main)
 
     ############################################################################
     ## PART I. Filter samples according to phenoData including their scores
     ############################################################################
-    pdata <- .filterPheno(pData(eset), fun.main, 'na')
+    pdata <- .filterPheno(colData(summarized_experiment), fun.main, 'na')
     ## Select only rows that have group scores for derived cells-donor cell
     sel <- group.score$test %in% pdata$sub_cell_type1
     if (sum(sel) == 0) {

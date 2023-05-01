@@ -97,15 +97,16 @@ additionally need to install the core Bioconductor packages if these have not
 already been installed:
 
 <<eval=FALSE>>=
-source("https://bioconductor.org/biocLite.R")
-biocLite()
+if (!requireNamespace("BiocManager", quietly=TRUE))
+    install.packages("BiocManager")
+BiocManager::install()
 @
 
 To complete this tutorial, you will to install the \pkg{hgu133plus2CellScore}
 and \pkg{CellScore} packages from the Bioconductor repository:
 
 <<eval=FALSE>>=
-biocLite(c("hgu133plus2CellScore", "CellScore"))
+BiocManager::install(c("hgu133plus2CellScore", "CellScore"))
 @
 
 
@@ -493,8 +494,8 @@ straightforward to calculate the CellScores for every sample in the expression
 matrix.
 
 <<eval=TRUE, echo=TRUE>>=
-cellscore <- CellScore(eset, cell.change, individ.OnOff$scores,
-                       cs$cosine.samples)
+cellscore <- CellScore(data=eset, transitions=cell.change, scores.onoff=individ.OnOff$scores,
+                       scores.cosine=cs$cosine.samples)
 @
 
 Finally, we can save all the scores and data in one file for later

@@ -72,7 +72,7 @@ CosineSimScore <- function(eset, cell.change, iqr.cutoff=0.1) {
     ## PART 0. Check function arguments
     ###########################################################################
     fun.main <- deparse(match.call()[[1]])
-    .stopIfNotExpressionSet(eset, 'eset', fun.main)
+    summarized_experiment <- .stopIfCantCoerceToSummarizedExperiment(eset, "eset", fun.main)
     .stopIfNotDataFrame(cell.change, 'cell.change', fun.main)
     .stopIfNotNumeric0to1(iqr.cutoff, 'min.diff.cutoff', fun.main)
 
@@ -92,7 +92,7 @@ CosineSimScore <- function(eset, cell.change, iqr.cutoff=0.1) {
     ##   assigning NA values to samples is an easy way to eliminate samples
     ##   from the analysis, without having to remove them from all input tables
     ##   (eg removing from eset, pdata, calls)
-    pdata <- pData(eset)
+    pdata <- colData(summarized_experiment)
     ## filter out samples with missing category and/or general cell type
     pdata.sel <- .filterPheno(pdata, fun.main, "na")
 
@@ -106,7 +106,7 @@ CosineSimScore <- function(eset, cell.change, iqr.cutoff=0.1) {
         stop(paste("No standard reference samples found, exiting function",
              fun.main))
     result$pdataSub <- pdataStd <- pdata.sel[selStd, ]
-    ynormStd <- exprs(eset[, selStd])
+    ynormStd <- assay(summarized_experiment[, selStd], 'exprs')
 
     ## B. Filter out not variable probes,
     ##    o variance in terms of IQR of group-wise median expressions
@@ -130,7 +130,7 @@ CosineSimScore <- function(eset, cell.change, iqr.cutoff=0.1) {
 
     ## We keep for score calculation the gene-filtered dataset with standards
     ## and test samples
-    ynormIQR <- exprs(eset[selGenes, rownames(pdata.sel)])
+    ynormIQR <- assay(summarized_experiment[selGenes, rownames(pdata.sel)], 'exprs')
 
     ############################################################################
     ## PART III. Calculating metrics

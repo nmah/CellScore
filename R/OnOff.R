@@ -80,7 +80,7 @@ OnOff <- function(eset, cell.change,
     ## PART 0. Check function arguments
     ############################################################################
     fun.main <- deparse(match.call()[[1]])
-    .stopIfNotExpressionSet(eset, 'eset', fun.main)
+    summarized_experiment <- .stopIfCantCoerceToSummarizedExperiment(eset, 'eset', fun.main)
     .stopIfNotDataFrame(cell.change, 'cell.change', fun.main)
     .stopIfNotNumeric0to1(min.diff.cutoff, 'min.diff.cutoff', fun.main)
     .stopIfNotNumeric0to1(test.cutoff, 'test.cutoff', fun.main)
@@ -96,10 +96,10 @@ OnOff <- function(eset, cell.change,
     ##         score.comparisons table, so that ALL of the score
     ##         comparisons in the table have samples in all groups
     ############################################################################
-    annot <- fData(eset)
-    pdata <- .filterPheno(pData(eset), fun.main, 'na')
-    calls <- assayDataElement(eset[, rownames(pdata)], "calls")
-    rownames(calls) <- annot$probe_id
+    annot <- rowData(summarized_experiment)
+    pdata <- .filterPheno(colData(summarized_experiment), fun.main, 'na')
+    calls <- assay(summarized_experiment[, rownames(pdata)], "calls")
+    rownames(calls) <- annot$feature_id
     score.comparisons <- .filterTransitions(cell.change, pdata, fun.main,
                                             "valid.names")
 
@@ -230,7 +230,7 @@ OnOff <- function(eset, cell.change,
 
     ## Combine marker and score lists
     onoff.markers <- do.call('rbind', lapply(out, '[[', 'markers'))
-    sub.onoff.markers <- onoff.markers[, c("comparison", "group", "probe_id")]
+    sub.onoff.markers <- onoff.markers[, c("comparison", "group", "feature_id")]
     onoff.markers <- onoff.markers[!duplicated(sub.onoff.markers),]
     onoff.scores <- do.call('rbind', lapply(out, '[[', 'scores'))
 
@@ -294,13 +294,13 @@ OnOff <- function(eset, cell.change,
     markers <- lapply(c("start", "target"),
                       function(group){
                           stopifnot(identical(names(probesets[[group]]),
-                                              annotations$probe_id))
+                                              annotations$feature_id))
                           info <- paste(instance[c("start", "target")],
                                         collapse = "->")
                           count.group <- sum(probesets[[group]])
                           data.frame(comparison=rep(info, count.group),
                                      group=rep(instance[group], count.group),
-                                     annotations[probesets[[group]],],
+                                     annotations[probesets[[group]],,drop=FALSE],
                                      stringsAsFactors=FALSE)
                       })
     do.call("rbind", markers)
